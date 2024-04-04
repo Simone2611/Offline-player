@@ -49,7 +49,7 @@ let titlefinal = decodeURI(title1);
       </div>
       <p>{titlefinal}</p>
     </div>
-    <div>
+    <div class="containerdownload">
       <p>Video scaricati</p>
       <div class="downloaded" id="videos"></div>
     </div>
@@ -67,8 +67,10 @@ let titlefinal = decodeURI(title1);
         let a = document.createElement("a");
         let a2 = document.createElement("a");
         let p = document.createElement("p");
-        thumb.src = filesInTheFolder[i] + "#t=20";
+        thumb.src = filesInTheFolder[i] + "#t=" + Math.random() * 26;
         thumb.classList.add("thumbnail");
+        thumb.classList.add("videosrc");
+
         a.href = filename;
 
         p.innerText = filename;
@@ -84,6 +86,62 @@ let titlefinal = decodeURI(title1);
         a2.appendChild(div);
         videos.appendChild(a2);
         i++;
+      });
+
+      let old = JSON.parse(localStorage.getItem("Cronologia"));
+      if (old == null) {
+        let arr = [];
+        let location = window.location.href;
+        arr.push(location);
+        document.cookie =
+          "crono=" +
+          JSON.stringify(arr) +
+          ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        localStorage.setItem("Cronologia", JSON.stringify(arr));
+      } else if (old[5] != undefined) {
+        old.splice(0, 1);
+        let location = window.location.href;
+
+        old.push(location);
+
+        document.cookie =
+          "crono=" +
+          JSON.stringify(old) +
+          ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        localStorage.setItem("Cronologia", JSON.stringify(old));
+      } else {
+        let location = window.location.href;
+
+        let n = 0;
+        old.forEach((element) => {
+          if (element == location) {
+            n = 1;
+          }
+        });
+
+        if (n == 0) {
+          old.push(location);
+          document.cookie =
+            "crono=" +
+            JSON.stringify(old) +
+            ";path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT";
+          localStorage.setItem("Cronologia", JSON.stringify(old));
+        } else {
+        }
+      }
+    </script>
+    <script>
+      const videohov = document.querySelectorAll(".videosrc");
+
+      videohov.forEach(function (vid) {
+        vid.onmouseover = function () {
+          this.play();
+          this.playbackRate = 1.5;
+          this.muted = true;
+        };
+        vid.onmouseout = function () {
+          this.load(); // stop and show poster
+        };
       });
     </script>
   </body>
