@@ -2,16 +2,16 @@
 
 # How to run it
 
-open the cmd in the directory / open the terminal in vscode
-type npm i / npm install
-type npm build
-type npm run preview
+- open the cmd in the directory / open the terminal in vscode
+- type npm i / npm install
+- type npm build
+- type npm run preview
 
 # How to setup the videos
-Only mp4 files
-Don't use strange words like: " {} [] % & ! etc.
-You can only put the mp4 in src/pages/videosrc (in the videosrc you can put any video you want)
 
+- Only mp4 files
+- Don't use strange words like: " {} [] % & ! etc.
+- You can only put the mp4 in src/pages/videosrc (in the videosrc you can put any video you want)
 
 # Update
 
