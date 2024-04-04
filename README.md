@@ -4,8 +4,11 @@
 
 - open the cmd in the directory / open the terminal in vscode
 - type npm i / npm install
-- type npm run build
-- type npm run preview
+- type npm rundev
+
+## warning
+
+- npm run build & preview doesn't work need to fix
 
 # How to setup the videos
 
@@ -34,5 +37,3 @@
   - nav bar
     - home button
     - input
-
-
