@@ -3,7 +3,6 @@
   border-radius: 10px;
 }
 .videoc {
-  margin-top: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -44,4 +43,38 @@
 
 .downloadedvideos {
   transition: 0.5s ease-in-out;
+}
+.containerAll {
+  margin-top: 4rem;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 5rem;
+  gap: 1rem;
+}
+
+.search a {
+  width: 25rem;
+}
+
+.search a div {
+  flex-direction: row;
+  display: flex;
+  gap: 0.2rem;
+}
+
+.search a div video {
+  width: 10rem;
+}
+.containerdownload2 {
+  padding: 0.5rem;
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 2rem;
 }

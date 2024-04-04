@@ -1,0 +1,212 @@
+---
+import "../../css/global.css";
+import "../../css/video.css";
+
+import fs from "fs";
+import path from "path";
+
+function getFiles(dir, files = []) {
+  // Get an array of all files and directories in the passed directory using fs.readdirSync
+  const fileList = fs.readdirSync(dir);
+  // Create the full path of the file/directory by concatenating the passed directory and file/directory name
+  for (const file of fileList) {
+    const name = `${dir}/${file}`;
+    // Check if the current file/directory is a directory using fs.statSync
+    if (fs.statSync(name).isDirectory()) {
+      // If it is a directory, recursively call the getFiles function with the directory path and the files array
+      getFiles(name, files);
+    } else {
+      // If it is a file, push the full path to the files array
+      files.push(name);
+    }
+  }
+  return files;
+}
+let arr = [];
+let i = 0;
+const filesInTheFolder = getFiles("src/pages/videosrc");
+let letter1 = Astro.url.pathname;
+let letter = letter1.replaceAll("/search/", "");
+
+filesInTheFolder.forEach((element) => {
+  let fix = element
+    .replaceAll("src/pages/videosrc/", "")
+    .replaceAll(".mp4", "")
+    .toLowerCase();
+
+  if (fix.includes(letter)) {
+    if (i + 1 == filesInTheFolder.length) {
+      arr.push(element);
+    } else {
+      arr.push(element + "-");
+      i++;
+    }
+  }
+});
+---
+
+<nav>
+  <svg id="home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+    ><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+    <path
+      d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"
+    ></path></svg
+  >
+  <input id="cerca" placeholder="Cerca..." />
+</nav>
+<div id="search"></div>
+<div class="containerdownload2">
+  <p class="title">Risultati</p>
+  <div class="downloaded" id="videos">{arr}</div>
+</div>
+<script>
+  const home = document.getElementById("home");
+  home.addEventListener("click", (e) => {
+    window.location.href = window.location.origin;
+  });
+
+  const input = document.getElementById("cerca");
+  input.addEventListener("input", (event) => {
+    let letter = document.getElementById("cerca").value;
+    let search2 = document.getElementById("search");
+    if (letter == null || letter == undefined || letter == "") {
+      search2.style.display = "none";
+    } else {
+      search2.style.display = "flex";
+      loadDoc();
+    }
+
+    addEventListener("click", (e) => {
+      let target = e.target.toString();
+
+      if (target.includes("HTMLInputElement")) {
+        search2.style.display = "flex";
+      } else {
+        search2.style.display = "none";
+      }
+    });
+
+    function loadDoc() {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onload = function () {
+        const res = this.responseText;
+        const search = document.getElementById("search");
+        search.innerText = res;
+
+        let transformato = res.trim();
+        search.innerHTML = transformato;
+        const inputsearch = document.getElementById("inputsearch");
+
+        let transformato2 = inputsearch.innerText.trim();
+        let arr = [transformato2];
+        let transformato3 = JSON.stringify(arr)
+          .replaceAll("-", '","')
+          .replace(',""', "");
+        let fix = JSON.parse(transformato3);
+
+        let j = 0;
+        inputsearch.innerText = "";
+        fix.forEach((element) => {
+          let filename = fix[j]
+            .replaceAll("src/pages/videosrc/", "")
+            .replaceAll(".mp4", "");
+          const div = document.createElement("div");
+          let thumb = document.createElement("video");
+          let a = document.createElement("a");
+          let a2 = document.createElement("a");
+          let p = document.createElement("p");
+          thumb.src =
+            window.location.origin +
+            "/src/pages/videosrc/" +
+            filename +
+            ".mp4#t=" +
+            Math.random() * 26;
+          thumb.classList.add("thumbnail");
+          thumb.classList.add("videosrc");
+
+          a.href = "/" + filename;
+
+          p.innerText = filename;
+
+          a2.href = "/" + filename;
+          a2.classList.add("downloadedvideos");
+
+          a.appendChild(p);
+
+          div.appendChild(thumb);
+          div.appendChild(a);
+
+          a2.appendChild(div);
+          inputsearch.appendChild(a2);
+          j++;
+        });
+      };
+      xhttp.open("GET", "/input/" + letter.replaceAll(" ", "+"));
+      xhttp.send();
+    }
+  });
+  let inputsearch = document.getElementById("videos");
+
+  let transformato2 = inputsearch.innerText.trim();
+  let arr = [transformato2];
+  let transformato3 = JSON.stringify(arr)
+    .replaceAll("-", '","')
+    .replace(',""', "");
+  let fix = JSON.parse(transformato3);
+
+  let j = 0;
+  inputsearch.innerText = "";
+  fix.forEach((element) => {
+    let filename = fix[j]
+      .replaceAll("src/pages/videosrc/", "")
+      .replaceAll(".mp4", "");
+    const div = document.createElement("div");
+    let thumb = document.createElement("video");
+    let a = document.createElement("a");
+    let a2 = document.createElement("a");
+    let p = document.createElement("p");
+    thumb.src =
+      window.location.origin +
+      "/src/pages/videosrc/" +
+      filename +
+      ".mp4#t=" +
+      Math.random() * 26;
+    thumb.classList.add("thumbnail");
+    thumb.classList.add("videosrc");
+
+    a.href = "/" + filename;
+
+    p.innerText = filename;
+
+    a2.href = "/" + filename;
+    a2.classList.add("downloadedvideos");
+
+    a.appendChild(p);
+
+    div.appendChild(thumb);
+    div.appendChild(a);
+
+    a2.appendChild(div);
+    inputsearch.appendChild(a2);
+    j++;
+  });
+
+  const videohov = document.querySelectorAll(".videosrc");
+
+  videohov.forEach(function (vid) {
+    vid.onmouseover = function () {
+      this.play();
+      this.playbackRate = 1.5;
+      this.muted = true;
+    };
+    vid.onmouseout = function () {
+      this.load(); // stop and show poster
+    };
+  });
+
+  input.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13) {
+      window.location.href = "/search/" + input.value;
+    }
+  });
+</script>
