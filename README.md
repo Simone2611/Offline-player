@@ -4,7 +4,7 @@
 
 - open the cmd in the directory / open the terminal in vscode
 - type npm i / npm install
-- type npm rundev
+- type npm run dev
 
 ## warning
 
