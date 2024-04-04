@@ -5,5 +5,5 @@ Only mp4 files
 # Update
 
 - 0.1
-  working video player
-  auto thumbnail
+  - working video player
+  - auto thumbnail
