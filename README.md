@@ -4,7 +4,7 @@
 
 - open the cmd in the directory / open the terminal in vscode
 - type npm i / npm install
-- type npm build
+- type npm run build
 - type npm run preview
 
 # How to setup the videos
