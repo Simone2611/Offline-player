@@ -1,0 +1,42 @@
+.video {
+  width: 900px;
+  border-radius: 10px;
+}
+.videoc {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container p {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  font-size: 1.3rem;
+}
+
+.thumbnail {
+  width: 15rem;
+  border-radius: 10px;
+}
+
+.downloaded {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.downloadedvideos:hover {
+  transform: scale(1.05);
+  transition: 0.5s ease-in-out;
+}
+
+.downloadedvideos {
+  transition: 0.5s ease-in-out;
+}
