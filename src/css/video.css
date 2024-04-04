@@ -29,7 +29,9 @@
 .downloaded {
   display: flex;
   flex-direction: row;
+  padding: 0.5rem;
   gap: 20px;
+  overflow-x: scroll;
 }
 
 .downloadedvideos:hover {

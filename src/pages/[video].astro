@@ -28,7 +28,8 @@ const filesInTheFolder = getFiles("src/pages/videosrc");
 let link = "src/pages/videosrc" + Astro.url.pathname + ".mp4";
 let title = Astro.url.pathname.replaceAll("/", "").replaceAll(".mp4", "");
 
-let titlefinal = title.charAt(0).toUpperCase() + title.slice(1);
+let title1 = title.charAt(0).toUpperCase() + title.slice(1);
+let titlefinal = decodeURI(title1);
 ---
 
 <html lang="en">
